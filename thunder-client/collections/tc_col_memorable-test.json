@@ -1,20 +1,20 @@
 {
-    "_id": "bdfbad21-e244-4370-bf29-ebc7989769c1",
-    "colName": "memorable-test",
-    "created": "2023-07-03T09:31:31.740Z",
-    "sortNum": 10000,
+    "client": "Thunder Client",
+    "collectionName": "memorable-test",
+    "dateExported": "2023-10-16T22:12:43.624Z",
+    "version": "1.1",
     "folders": [],
     "requests": [
         {
-            "_id": "c253f19b-c73a-4a6d-8ce0-bc2b058edd51",
-            "colId": "bdfbad21-e244-4370-bf29-ebc7989769c1",
+            "_id": "fe1aeea5-8794-4622-a813-1153f12a9d90",
+            "colId": "87d3a1ae-6591-4e01-9c60-ee653be56541",
             "containerId": "",
             "name": "basic Login",
             "url": "{{baseUrl}}",
             "method": "POST",
             "sortNum": 20000,
-            "created": "2023-07-03T09:31:53.814Z",
-            "modified": "2023-07-03T09:37:51.923Z",
+            "created": "2023-10-16T16:48:16.496Z",
+            "modified": "2023-10-16T21:43:05.657Z",
             "headers": [],
             "params": [],
             "body": {
@@ -31,20 +31,98 @@
                     "type": "set-env-var",
                     "custom": "json.data.logIn.sessionToken",
                     "action": "setto",
-                    "value": "{{token}}"
+                    "value": "{{token, local}}"
+                },
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
                 }
             ]
         },
         {
-            "_id": "dad59559-2645-4bbc-a1d5-cafb766b5793",
-            "colId": "bdfbad21-e244-4370-bf29-ebc7989769c1",
+            "_id": "0485851c-39ff-4613-b47e-c9816654c6b0",
+            "colId": "87d3a1ae-6591-4e01-9c60-ee653be56541",
+            "containerId": "",
+            "name": "basic Login Other User",
+            "url": "{{baseUrl}}",
+            "method": "POST",
+            "sortNum": 25000,
+            "created": "2023-10-16T21:00:25.100Z",
+            "modified": "2023-10-16T21:52:38.776Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "graphql",
+                "raw": "",
+                "form": [],
+                "graphql": {
+                    "query": "mutation ($authInput:AuthenticationInput!) {\n    logIn(input:$authInput) {\n        sessionToken\n    }\n}",
+                    "variables": "{\n  \"authInput\": {\n    \"email\":\"localadmin2@memorable.io\",\n    \"password\":\"LocalUser!!!98\"\n    \n  }\n}"
+                }
+            },
+            "tests": [
+                {
+                    "type": "set-env-var",
+                    "custom": "json.data.logIn.sessionToken",
+                    "action": "setto",
+                    "value": "{{notAdmintoken, local}}"
+                },
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                }
+            ]
+        },
+        {
+            "_id": "fb2b422a-8c97-4516-9715-8942639479a5",
+            "colId": "87d3a1ae-6591-4e01-9c60-ee653be56541",
+            "containerId": "",
+            "name": "basic Login (Not Admin)",
+            "url": "{{baseUrl}}",
+            "method": "POST",
+            "sortNum": 27500,
+            "created": "2023-10-16T21:47:32.827Z",
+            "modified": "2023-10-16T21:48:38.857Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "graphql",
+                "raw": "",
+                "form": [],
+                "graphql": {
+                    "query": "mutation ($authInput:AuthenticationInput!) {\n    logIn(input:$authInput) {\n        sessionToken\n    }\n}",
+                    "variables": "{\n  \"authInput\": {\n    \"email\":\"localnoadmin@memorable.io\",\n    \"password\":\"LocalUser!!!98\"\n    \n  }\n}"
+                }
+            },
+            "tests": [
+                {
+                    "type": "set-env-var",
+                    "custom": "json.data.logIn.sessionToken",
+                    "action": "setto",
+                    "value": "{{notAdmintoken, local}}"
+                },
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                }
+            ]
+        },
+        {
+            "_id": "37763964-cd3d-4990-8cb9-7751267de8e6",
+            "colId": "87d3a1ae-6591-4e01-9c60-ee653be56541",
             "containerId": "",
             "name": "update User Data",
             "url": "{{baseUrl}}",
             "method": "POST",
             "sortNum": 30000,
-            "created": "2023-07-03T09:33:07.344Z",
-            "modified": "2023-07-03T09:40:52.278Z",
+            "created": "2023-10-16T16:48:16.497Z",
+            "modified": "2023-10-16T21:45:23.195Z",
             "headers": [
                 {
                     "name": "authorization",
@@ -61,18 +139,31 @@
                     "variables": "{\n  \"userProfileInput\": {\n    \"name\":\"localUser\",\n    \"currentPassword\":\"LocalUser!!!98\",\n    \"newPassword\":\"LocalUser!!!98\"\n    \n  }\n}"
                 }
             },
-            "tests": []
+            "tests": [
+                {
+                    "type": "json-query",
+                    "custom": "json.data.updateUserProfile.name",
+                    "action": "equal",
+                    "value": "localUser"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.data.updateUserProfile.email",
+                    "action": "equal",
+                    "value": "localuser@memorable.io"
+                }
+            ]
         },
         {
-            "_id": "f8b109b5-b0cf-4dc1-856a-2257604e1c67",
-            "colId": "bdfbad21-e244-4370-bf29-ebc7989769c1",
+            "_id": "bb671cc4-0fb6-453d-88f8-095f6bc2e2b8",
+            "colId": "87d3a1ae-6591-4e01-9c60-ee653be56541",
             "containerId": "",
             "name": "getLoggedInUser",
             "url": "{{baseUrl}}",
             "method": "POST",
             "sortNum": 40000,
-            "created": "2023-07-03T09:33:34.680Z",
-            "modified": "2023-07-03T09:41:10.206Z",
+            "created": "2023-10-16T16:48:16.498Z",
+            "modified": "2023-10-16T21:54:02.919Z",
             "headers": [
                 {
                     "name": "authorization",
@@ -89,18 +180,31 @@
                     "variables": "{}"
                 }
             },
-            "tests": []
+            "tests": [
+                {
+                    "type": "json-query",
+                    "custom": "json.data.getLoggedInUser.id",
+                    "action": "equal",
+                    "value": "1"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.data.getLoggedInUser.email",
+                    "action": "equal",
+                    "value": "localuser@memorable.io"
+                }
+            ]
         },
         {
-            "_id": "5f33a407-9cd4-4f3d-8c16-2cfdd61a2b77",
-            "colId": "bdfbad21-e244-4370-bf29-ebc7989769c1",
+            "_id": "4bdb9fcd-62e3-4be9-b518-5d2aa5b51050",
+            "colId": "87d3a1ae-6591-4e01-9c60-ee653be56541",
             "containerId": "",
             "name": "create Brand",
             "url": "{{baseUrl}}",
             "method": "POST",
             "sortNum": 50000,
-            "created": "2023-07-03T09:41:40.278Z",
-            "modified": "2023-07-03T09:44:02.226Z",
+            "created": "2023-10-16T16:48:16.499Z",
+            "modified": "2023-10-16T21:57:30.757Z",
             "headers": [
                 {
                     "name": "authorization",
@@ -114,21 +218,40 @@
                 "form": [],
                 "graphql": {
                     "query": "mutation createBrand($brand: CreateBrandInput!){\n    createBrand(input: $brand){\n        id,\n        name,\n        createdAt,\n        logoUrl,\n        sector,\n    }\n}",
-                    "variables": "{\n  \"brand\": {\n    \"name\": \"Pharma Global 2\",\n    \"sector\": [\"PharmaceuticalsAndBiotechnology\"],\n    \"logoUrl\":\"logoUrl\"\n  }\n}"
+                    "variables": "{\n  \"brand\": {\n    \"name\": \"Pharma Global\",\n    \"sector\": [\"PharmaceuticalsAndBiotechnology\"],\n    \"logoUrl\":\"logoUrl\"\n  }\n}"
                 }
             },
-            "tests": []
+            "tests": [
+                {
+                    "type": "json-query",
+                    "custom": "json.data.createBrand.name",
+                    "action": "equal",
+                    "value": "Pharma Global"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.data.createBrand.logoUrl",
+                    "action": "equal",
+                    "value": "logoUrl"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.data.createBrand.sector[0]",
+                    "action": "equal",
+                    "value": "PharmaceuticalsAndBiotechnology"
+                }
+            ]
         },
         {
-            "_id": "9f4d0c59-dcd6-48d1-9e60-0cd6c4a66155",
-            "colId": "bdfbad21-e244-4370-bf29-ebc7989769c1",
+            "_id": "385e40d8-8eeb-490f-b237-38ee81847a7f",
+            "colId": "87d3a1ae-6591-4e01-9c60-ee653be56541",
             "containerId": "",
             "name": "update Brand",
             "url": "{{baseUrl}}",
             "method": "POST",
             "sortNum": 60000,
-            "created": "2023-07-03T09:42:36.064Z",
-            "modified": "2023-07-03T09:44:08.438Z",
+            "created": "2023-10-16T16:48:16.500Z",
+            "modified": "2023-10-16T21:58:07.984Z",
             "headers": [
                 {
                     "name": "authorization",
@@ -142,10 +265,140 @@
                 "form": [],
                 "graphql": {
                     "query": "mutation updateBrand($brandId: String!, $brand: UpdateBrandInput!){\n    updateBrand(brandId: $brandId, input: $brand){\n        id,\n        name,\n        createdAt,\n        logoUrl,\n        sector,\n    }\n}",
-                    "variables": "{\n  \"brand\": {\n    \"name\": \"Pharma Global\",\n    \"logoUrl\":\"logoUrl\",\n    \"sector\": [\"Utilities\"]\n    \n  },\n  \"brandId\": \"01H2Q81MZ45Y2FVD2KB0SDTMXR\"\n}"
+                    "variables": "{\n  \"brand\": {\n    \"name\": \"Pharma Global Tecnologies\",\n    \"logoUrl\":\"logoUrl\",\n    \"sector\": [\"Utilities\"]\n    \n  },\n  \"brandId\": \"01H4618V8XGS613BS5BSPZP180\"\n}"
                 }
             },
-            "tests": []
+            "tests": [
+                {
+                    "type": "json-query",
+                    "custom": "json.data.updateBrand.name",
+                    "action": "equal",
+                    "value": "Pharma Global Tecnologies"
+                }
+            ]
+        },
+        {
+            "_id": "fbc496be-3219-4a73-be2c-dec422e88bfe",
+            "colId": "87d3a1ae-6591-4e01-9c60-ee653be56541",
+            "containerId": "",
+            "name": "update Brand Status",
+            "url": "{{baseUrl}}",
+            "method": "POST",
+            "sortNum": 65000,
+            "created": "2023-10-16T16:53:46.117Z",
+            "modified": "2023-10-16T21:58:42.004Z",
+            "headers": [
+                {
+                    "name": "authorization",
+                    "value": "Bearer {{token}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "graphql",
+                "raw": "",
+                "form": [],
+                "graphql": {
+                    "query": "mutation updateBrandStatus($brandId: String!, $brand: BrandStatusInput!){\n    updateBrandStatus(brandId: $brandId, input: $brand){\n        id,\n        name,\n        status\n    }\n}",
+                    "variables": "{\n  \"brand\": {\n    \"status\": \"IN_PROGRESS\"\n  },\n  \"brandId\": \"01H4618V8XGS613BS5BSPZP180\"\n}"
+                }
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.data.updateBrandStatus.status",
+                    "action": "equal",
+                    "value": "IN_PROGRESS"
+                }
+            ]
+        },
+        {
+            "_id": "89ec00a7-c250-4111-961b-a4009fec4711",
+            "colId": "87d3a1ae-6591-4e01-9c60-ee653be56541",
+            "containerId": "",
+            "name": "update Brand Status from another business",
+            "url": "{{baseUrl}}",
+            "method": "POST",
+            "sortNum": 75000,
+            "created": "2023-10-16T20:31:35.609Z",
+            "modified": "2023-10-16T21:59:16.594Z",
+            "headers": [
+                {
+                    "name": "authorization",
+                    "value": "Bearer {{token2}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "graphql",
+                "raw": "",
+                "form": [],
+                "graphql": {
+                    "query": "mutation updateBrandStatus($brandId: String!, $brand: BrandStatusInput!){\n    updateBrandStatus(brandId: $brandId, input: $brand){\n        id,\n        name,\n        status\n    }\n}",
+                    "variables": "{\n  \"brand\": {\n    \"status\": \"IN_PROGRESS\"\n  },\n  \"brandId\": \"01H4618V8XGS613BS5BSPZP180\"\n}"
+                }
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.errors[0].message",
+                    "action": "equal",
+                    "value": "NOT_ENOUGH_PERMISSIONS"
+                }
+            ]
+        },
+        {
+            "_id": "f0087d2a-7856-4fc1-af55-cd391b070eac",
+            "colId": "87d3a1ae-6591-4e01-9c60-ee653be56541",
+            "containerId": "",
+            "name": "update Brand Status (user not admin)",
+            "url": "{{baseUrl}}",
+            "method": "POST",
+            "sortNum": 85000,
+            "created": "2023-10-16T21:46:49.962Z",
+            "modified": "2023-10-16T21:52:47.990Z",
+            "headers": [
+                {
+                    "name": "authorization",
+                    "value": "Bearer {{notAdmintoken}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "graphql",
+                "raw": "",
+                "form": [],
+                "graphql": {
+                    "query": "mutation updateBrandStatus($brandId: String!, $brand: BrandStatusInput!){\n    updateBrandStatus(brandId: $brandId, input: $brand){\n        id,\n        name,\n        status\n    }\n}",
+                    "variables": "{\n  \"brand\": {\n    \"status\": \"IN_PROGRESS\"\n  },\n  \"brandId\": \"01H4618V8XGS613BS5BSPZP180\"\n}"
+                }
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.errors[0].message",
+                    "action": "equal",
+                    "value": "NOT_ENOUGH_PERMISSIONS"
+                }
+            ]
         }
     ]
 }
