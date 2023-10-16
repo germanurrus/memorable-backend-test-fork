@@ -1,5 +1,5 @@
 // File used only to generate migrations
-
+import "dotenv/config";
 import {Config} from "./src/config/Config";
 
 export default {
