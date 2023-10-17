@@ -1,18 +1,26 @@
 {
-    "_id": "7a21206d-6833-492d-bf04-8be56301ec57",
-    "name": "Local Dev",
-    "default": true,
-    "sortNum": 10000,
-    "created": "2023-07-03T09:39:57.955Z",
-    "modified": "2023-07-03T09:39:57.955Z",
-    "data": [
+    "client": "Thunder Client",
+    "environmentName": "(Local Env)",
+    "dateExported": "2023-10-16T22:13:37.883Z",
+    "version": "1.0",
+    "global": true,
+    "local": true,
+    "variables": [
         {
-            "name": "token",
-            "value": ""
+            "name": "token2",
+            "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOiIzIiwiaXNzdWVkIjoxNjk3NDkyOTQ0MzE4LCJleHBpcmVzIjoxNjk3NTAzNzQ0MzE4fQ.ucrX7KqQWD4-8_NQWKyzCztn-W2mujcf3y5TB7ik8P-kz0mARHZiTTdyaoYboxzHVPuddh8QfAxTU_7W_ovsiw"
         },
         {
             "name": "baseUrl",
             "value": "http://localhost:3333/graphql"
+        },
+        {
+            "name": "token",
+            "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOiIxIiwiaXNzdWVkIjoxNjk3NDk0MzU2NDg0LCJleHBpcmVzIjoxNjk3NTA1MTU2NDg0fQ.vhIk8AyVoP0WhltJXzx5Ium9toWklR5ElfY68hJwe_YYO-s6Gxxv9QuccWJF8VnkuW4MXrlmm33sOkiBvxctnA"
+        },
+        {
+            "name": "notAdmintoken",
+            "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOiIyIiwiaXNzdWVkIjoxNjk3NDk0MzU2Njg0LCJleHBpcmVzIjoxNjk3NTA1MTU2Njg0fQ.1fMF2FaaNxfZxF--A9S09IHrfgsDNuz2fXGjvWAXtfNvr55grLPc6dvW23DCR8Yvic36kidUI9aNGYd6IH1iIg"
         }
     ]
 }
