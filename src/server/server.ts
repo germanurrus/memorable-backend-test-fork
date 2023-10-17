@@ -53,6 +53,17 @@ const main = async () => {
                 maxAge: 31536000, // 1 year
                 includeSubDomains: true,
             },
+            contentSecurityPolicy:
+                process.env.NODE_ENV === "production"
+                    ? undefined
+                    : {
+                          directives: {
+                              imgSrc: [`'self'`, "data:", "apollo-server-landing-page.cdn.apollographql.com"],
+                              scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
+                              manifestSrc: [`'self'`, "apollo-server-landing-page.cdn.apollographql.com"],
+                              frameSrc: [`'self'`, "sandbox.embed.apollographql.com"],
+                          },
+                      },
         }),
     );
 
